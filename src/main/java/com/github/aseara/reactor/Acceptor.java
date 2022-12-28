@@ -22,7 +22,7 @@ public class Acceptor implements Runnable {
             socketChannel = serverSocketChannel.accept();
             if (socketChannel != null) {
                 System.out.printf("收到来自 %s 的连接%n", socketChannel.getRemoteAddress());
-                new Handler(socketChannel, selector);
+                new AsyncHandler(socketChannel, selector);
             }
         } catch (IOException e) {
             e.printStackTrace();
