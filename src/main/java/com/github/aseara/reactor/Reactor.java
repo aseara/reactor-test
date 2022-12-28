@@ -16,7 +16,7 @@ public class Reactor implements Runnable {
         serverSocketChannel.socket().bind(new InetSocketAddress(port));
         serverSocketChannel.configureBlocking(false);
         SelectionKey sk = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-        sk.attach(new Acceptor(serverSocketChannel, selector));
+        sk.attach(new Acceptor(serverSocketChannel));
     }
 
     @Override
