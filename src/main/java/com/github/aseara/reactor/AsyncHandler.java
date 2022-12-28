@@ -72,19 +72,19 @@ public class AsyncHandler implements Runnable {
         }
     }
 
+    private void readWorker() {
+        System.out.printf("recv msg : %s", new String(readBuffer.array()));
+        status = SEND;
+        selectionKey.interestOps(SelectionKey.OP_WRITE);
+        selector.wakeup();
+    }
+
     private void send() {
         if (selectionKey.isValid()) {
             status = PROCESSING;
             workers.execute(this::sendWorker);
             selectionKey.interestOps(SelectionKey.OP_READ);
         }
-    }
-
-    private void readWorker() {
-        System.out.printf("recv msg : %s", new String(readBuffer.array()));
-        status = SEND;
-        selectionKey.interestOps(SelectionKey.OP_WRITE);
-        selector.wakeup();
     }
 
     private void sendWorker() {
